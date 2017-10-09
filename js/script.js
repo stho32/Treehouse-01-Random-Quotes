@@ -38,7 +38,10 @@ function changeBackgroundColor()
 
 function resetHasBeenShownYetOnQuotes()
 {
+    console.log("-------");
     console.log("All quotes have been shown. Resetting.");
+    console.log("-------");
+    
     for (var i = 0; i < quotes.length; i++ )
         quotes[i].hasBeenShownYet = false;
 }
