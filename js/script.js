@@ -65,9 +65,9 @@ function getIndexesOfQuotesThatHaveNotBeenShownYet() {
 function getRandomQuote() {
     var possibleIndexes = getIndexesOfQuotesThatHaveNotBeenShownYet();
 
-    /* print a status message */
-    console.log("\"remaining\" random quotes: " + possibleIndexes.length.toString());
-    console.log(possibleIndexes);
+    /* print a status message for debugging */
+    //console.log("\"remaining\" random quotes: " + possibleIndexes.length.toString());
+    //console.log(possibleIndexes);
 
     return quotes[
         possibleIndexes[Math.floor((Math.random() * possibleIndexes.length))]
@@ -144,7 +144,7 @@ function printQuote() {
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
-document.onload = function() {
+window.onload = function() {
     // I'd like to see my first quote as soon as the page is opened up.
     printQuote();
 }
