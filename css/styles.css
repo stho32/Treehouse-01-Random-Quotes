@@ -89,3 +89,11 @@ body {
     font-size: 1rem;
   }
 }
+
+/*
+  soft slide between background colors, so its a bit easier on the eyes
+*/
+body {
+  -webkit-transition: background-color 2s; 
+  transition: background-color 2s;
+}

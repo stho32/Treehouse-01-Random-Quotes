@@ -22,6 +22,20 @@ quotes = [
 
 ]
 
+/* colors for random background change */
+colors = ["red", "green", "blue", "orange"];
+
+function changeBackgroundColor() 
+{
+    var activeColor = document.body.style.background;
+    var randomColor = colors[Math.floor((Math.random() * colors.length))];
+    // we really really want a new color every time
+    while (activeColor === randomColor)
+        randomColor = colors[Math.floor((Math.random() * colors.length))];
+
+    document.body.style.background = randomColor;    
+}
+
 function resetHasBeenShownYetOnQuotes()
 {
     for (var i = 0; i < quotes.length; i++ )
@@ -73,6 +87,9 @@ function escapeHtml(text) {
     printQuote gets the quote onto the screen
 */
 function printQuote() {
+    // In case you do not want the random color changes of the background
+    // comment the following line out.
+    changeBackgroundColor();
 
     var quote = getRandomQuote();
     // remember.. this quote has been shown!
