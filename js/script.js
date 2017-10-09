@@ -38,6 +38,7 @@ function changeBackgroundColor()
 
 function resetHasBeenShownYetOnQuotes()
 {
+    console.log("All quotes have been shown. Resetting.");
     for (var i = 0; i < quotes.length; i++ )
         quotes[i].hasBeenShownYet = false;
 }
@@ -94,6 +95,7 @@ function printQuote() {
     var quote = getRandomQuote();
     // remember.. this quote has been shown!
     quote.hasBeenShownYet = true;
+    console.log(quote.quote);
 
     /*
         The template just contains some place-holders.
