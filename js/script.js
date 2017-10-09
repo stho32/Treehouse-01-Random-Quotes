@@ -19,7 +19,7 @@ quotes = [
     { quote : "Your time will come. You will face the same Evil, and you will defeat it.", 
       source: "Arwen", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
       hasBeenShownYet : false },
-
+    
 ]
 
 /* colors for random background change */
@@ -41,7 +41,7 @@ function resetHasBeenShownYetOnQuotes()
     console.log("-------");
     console.log("All quotes have been shown. Resetting.");
     console.log("-------");
-    
+
     for (var i = 0; i < quotes.length; i++ )
         quotes[i].hasBeenShownYet = false;
 }
