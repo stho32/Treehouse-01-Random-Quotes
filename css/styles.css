@@ -97,3 +97,23 @@ body {
   -webkit-transition: background-color 2s; 
   transition: background-color 2s;
 }
+
+/*
+  make the image a bit nicer
+*/
+img {
+  display: block;
+  float:right;
+  max-width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+/*
+  links white and to the right
+*/
+a {
+  float:right;
+  color:white;
+}

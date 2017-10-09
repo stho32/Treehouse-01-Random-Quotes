@@ -6,20 +6,32 @@ quotes = [
     
     { quote : "There is only one Lord of the Ring, only one who can bend it to his will. And he does not share power.", 
       source: "Gandalf", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
-      hasBeenShownYet : false },
+      hasBeenShownYet : false, 
+      image: "http://www-images.theonering.org/torwp/wp-content/uploads/2012/05/ttt0342.jpg",
+      getMoreQuotesFrom: "http://www.theonering.net/torwp/2012/05/08/55715-top-20-quotes-from-the-lord-of-the-rings/" },
 
     { quote : "Even the smallest person can change the course of the future.", 
       source: "Galadriel", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
-      hasBeenShownYet : false },
-
+      hasBeenShownYet : false, 
+      image: "http://www-images.theonering.org/torwp/wp-content/uploads/2012/05/fotr1360.jpg",
+      getMoreQuotesFrom: "http://www.theonering.net/torwp/2012/05/08/55715-top-20-quotes-from-the-lord-of-the-rings/" },
+      
     { quote : "We swears, to serve the master of the Precious. We will swear on… on the Precious!", 
       source: "Gollum", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
-      hasBeenShownYet : false },
-
+      hasBeenShownYet : false, 
+      image: "http://www-images.theonering.org/torwp/wp-content/uploads/2012/05/rotk0213.jpg",
+      getMoreQuotesFrom: "http://www.theonering.net/torwp/2012/05/08/55715-top-20-quotes-from-the-lord-of-the-rings/" },
+      
     { quote : "Your time will come. You will face the same Evil, and you will defeat it.", 
       source: "Arwen", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
-      hasBeenShownYet : false },
-    
+      hasBeenShownYet : false, 
+      image: "http://www-images.theonering.org/torwp/wp-content/uploads/2012/05/fotr0724.jpg",
+      getMoreQuotesFrom: "http://www.theonering.net/torwp/2012/05/08/55715-top-20-quotes-from-the-lord-of-the-rings/" },
+      
+      { quote : "[referring to Captain America's shield] That thing doesn't obey the laws of physics at all!", 
+      source: "Spider-Man", citation : "The First Avenger: Civil War", year: 2016,
+      hasBeenShownYet : false, 
+      getMoreQuotesFrom: "http://www.imdb.com/title/tt3498820/quotes" },      
 ]
 
 /* colors for random background change */
@@ -126,7 +138,15 @@ function printQuote() {
 
     template +=
         '</p>';
-    
+
+    if ( quote.getMoreQuotesFrom !== undefined )
+        template += "<a target=\"_blank\" href=\"$getMoreQuotesFrom$\">Get More Quotes here...</a>";
+
+    if ( quote.image !== undefined )
+        template = 
+        '   <img src="$image$" />' + template;
+
+
     /* Put the quote contents into the file. 
        Although I am quite sure not to put evil quotes into the file that 
        will destroy the html consistency I better escape < and > so 
@@ -136,7 +156,9 @@ function printQuote() {
     template = template.replace("$source$", escapeHtml(quote.source));
     template = template.replace("$citation$", escapeHtml(quote.citation || ""));
     template = template.replace("$year$", escapeHtml(quote.year.toString() || ""));
-    
+    template = template.replace("$image$", quote.image || "");
+    template = template.replace("$getMoreQuotesFrom$", quote.getMoreQuotesFrom || "");
+
     document.getElementById('quote-box').innerHTML = template;
 
     
@@ -150,4 +172,5 @@ document.getElementById('loadQuote').addEventListener("click", printQuote, false
 window.onload = function() {
     // I'd like to see my first quote as soon as the page is opened up.
     printQuote();
+    setInterval(printQuote, 30 * 1000); // 'refresh the quote after 30 seconds'
 }
