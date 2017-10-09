@@ -5,25 +5,58 @@ quotes = [
     // http://www.theonering.net/torwp/2012/05/08/55715-top-20-quotes-from-the-lord-of-the-rings/
     
     { quote : "There is only one Lord of the Ring, only one who can bend it to his will. And he does not share power.", 
-      source: "Gandalf", citation : "Lord of the rings - Fellowship of the ring", year: 2001 },
+      source: "Gandalf", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
+      hasBeenShownYet : false },
 
     { quote : "Even the smallest person can change the course of the future.", 
-      source: "Galadriel", citation : "Lord of the rings - Fellowship of the ring", year: 2001 },
+      source: "Galadriel", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
+      hasBeenShownYet : false },
 
     { quote : "We swears, to serve the master of the Precious. We will swear on… on the Precious!", 
-      source: "Gollum", citation : "Lord of the rings - Fellowship of the ring", year: 2001 },
+      source: "Gollum", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
+      hasBeenShownYet : false },
 
     { quote : "Your time will come. You will face the same Evil, and you will defeat it.", 
-      source: "Arwen", citation : "Lord of the rings - Fellowship of the ring", year: 2001 },
-
+      source: "Arwen", citation : "Lord of the rings - Fellowship of the ring", year: 2001,
+      hasBeenShownYet : false },
 
 ]
+
+function resetHasBeenShownYetOnQuotes()
+{
+    for (var i = 0; i < quotes.length; i++ )
+        quotes[i].hasBeenShownYet = false;
+}
+
+function getIndexesOfQuotesThatHaveNotBeenShownYet() {
+    var result = new Array();
+    for (var i = 0; i < quotes.length; i++ )
+    {
+        if ( !quotes[i].hasBeenShownYet )
+            result.push(i);
+    }
+
+    if (result.length == 0) {
+        resetHasBeenShownYetOnQuotes();
+        return getIndexesOfQuotesThatHaveNotBeenShownYet();
+    }
+
+    return result;
+}
 
 /*
     getRandomQuote selects a random quote from the quotes array. 
 */
 function getRandomQuote() {
-    return quotes[Math.floor((Math.random() * quotes.length))];
+    var possibleIndexes = getIndexesOfQuotesThatHaveNotBeenShownYet();
+
+    /* print a status message */
+    console.log("\"remaining\" random quotes: " + possibleIndexes.length.toString());
+    console.log(possibleIndexes);
+
+    return quotes[
+        possibleIndexes[Math.floor((Math.random() * possibleIndexes.length))]
+    ];
 }
 
 /*
@@ -42,6 +75,8 @@ function escapeHtml(text) {
 function printQuote() {
 
     var quote = getRandomQuote();
+    // remember.. this quote has been shown!
+    quote.hasBeenShownYet = true;
 
     /*
         The template just contains some place-holders.
@@ -81,6 +116,8 @@ function printQuote() {
     template = template.replace("$year$", escapeHtml(quote.year.toString() || ""));
     
     document.getElementById('quote-box').innerHTML = template;
+
+    
 }
 
 
@@ -88,3 +125,7 @@ function printQuote() {
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
+document.onload = function() {
+    // I'd like to see my first quote as soon as the page is opened up.
+    printQuote();
+}
