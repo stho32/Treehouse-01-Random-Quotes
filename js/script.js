@@ -42,8 +42,9 @@ function changeBackgroundColor()
     var activeColor = document.body.style.background;
     var randomColor = colors[Math.floor((Math.random() * colors.length))];
     // we really really want a new color every time
-    while (activeColor === randomColor)
+    while (activeColor === randomColor) {
         randomColor = colors[Math.floor((Math.random() * colors.length))];
+    }
 
     document.body.style.background = randomColor;    
 }
@@ -54,16 +55,18 @@ function resetHasBeenShownYetOnQuotes()
     console.log("All quotes have been shown. Resetting.");
     console.log("-------");
 
-    for (var i = 0; i < quotes.length; i++ )
+    for (var i = 0; i < quotes.length; i++ ) {
         quotes[i].hasBeenShownYet = false;
+    }
 }
 
 function getIndexesOfQuotesThatHaveNotBeenShownYet() {
     var result = new Array();
     for (var i = 0; i < quotes.length; i++ )
     {
-        if ( !quotes[i].hasBeenShownYet )
+        if ( !quotes[i].hasBeenShownYet ) {
             result.push(i);
+        }
     }
 
     if (result.length == 0) {
@@ -128,23 +131,27 @@ function printQuote() {
         '<p class="quote"> $quote$ </p>' + 
         '<p class="source"> $source$';
 
-    if ( quote.citation !== undefined )
+    if ( quote.citation !== undefined ) {
         template += 
         '   <span class="citation"> $citation$ </span>';
+    }
 
-    if ( quote.year !== undefined )
+    if ( quote.year !== undefined ) {
         template += 
         '   <span class="year"> $year$ </span>';
+    }
 
     template +=
         '</p>';
 
-    if ( quote.getMoreQuotesFrom !== undefined )
+    if ( quote.getMoreQuotesFrom !== undefined ) {
         template += "<a target=\"_blank\" href=\"$getMoreQuotesFrom$\">Get More Quotes here...</a>";
+    }
 
-    if ( quote.image !== undefined )
+    if ( quote.image !== undefined ) {
         template = 
         '   <img src="$image$" />' + template;
+    }
 
 
     /* Put the quote contents into the file. 
@@ -160,8 +167,6 @@ function printQuote() {
     template = template.replace("$getMoreQuotesFrom$", quote.getMoreQuotesFrom || "");
 
     document.getElementById('quote-box').innerHTML = template;
-
-    
 }
 
 
