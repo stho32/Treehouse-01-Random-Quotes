@@ -37,6 +37,7 @@ quotes = [
 /* colors for random background change */
 colors = ["red", "green", "blue", "orange"];
 
+
 function changeBackgroundColor() 
 {
     var activeColor = document.body.style.background;
@@ -106,6 +107,9 @@ function escapeHtml(text) {
     printQuote gets the quote onto the screen
 */
 function printQuote() {
+    // reset timer
+    window.automaticQuoteChange.resetTimer();
+
     // In case you do not want the random color changes of the background
     // comment the following line out.
     changeBackgroundColor();
@@ -169,13 +173,47 @@ function printQuote() {
     document.getElementById('quote-box').innerHTML = template;
 }
 
+// Everything needed to change the quotes automatically
+function AutomaticQuoteChange() {
+    var changeQuoteEveryInSeconds = 30;
+    var counterState = changeQuoteEveryInSeconds;
 
-// event listener to respond to "Show another quote" button clicks
-// when user clicks anywhere on the button, the "printQuote" function is called
-document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+    function updateStateDisplay() {
+        // Update the display of the remaining seconds
+        document.getElementById('next-quote-coming-up-in').innerHTML = 
+        "The next quote is coming up in " + counterState.toString() + " seconds...";
+    }
+
+    function countdownAndChangeQuote() {
+        counterState -= 1;
+        
+        if (counterState <= 0) {
+            counterState = changeQuoteEveryInSeconds;
+            printQuote();
+        }
+
+        // Update the display of the remaining seconds
+        updateStateDisplay();
+    }
+
+    setInterval(countdownAndChangeQuote, 1000); 
+
+    return {
+        resetTimer : function() {
+            counterState = changeQuoteEveryInSeconds;
+            updateStateDisplay();
+        }
+    }
+}
+
 
 window.onload = function() {
+    window.automaticQuoteChange = AutomaticQuoteChange(); // 'refresh the quote after 30 seconds'
+    window.automaticQuoteChange.resetTimer();
     // I'd like to see my first quote as soon as the page is opened up.
     printQuote();
-    setInterval(printQuote, 30 * 1000); // 'refresh the quote after 30 seconds'
+    // event listener to respond to "Show another quote" button clicks
+    // when user clicks anywhere on the button, the "printQuote" function is called
+    document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 }
+
