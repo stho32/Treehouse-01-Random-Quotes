@@ -5,5 +5,5 @@ Passed in 10/2017 with "exceeding expectations".
 
 You can visit the resulting web page here: 
 
-https://stho32.github.io/treehouse-random-quotes/
+https://stho32.github.io/Treehouse-01-Random-Quotes/
 
